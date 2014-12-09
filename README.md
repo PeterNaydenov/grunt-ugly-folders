@@ -1,6 +1,10 @@
 # uglyFolders
 
-> Folders based uglify.
+*WARNING* - it's just a test. It's still not a functional software.
+
+Folders based uglify. Every folder name become a file. All files in folder become content of result file.
+
+
 
 ## Getting Started
 This plugin requires Grunt `~0.4.5`
