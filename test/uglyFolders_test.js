@@ -31,6 +31,7 @@ exports.uglyFolders = {
   TEST CASES
 
   - default
+  - src folder does not exists
   - src folder with '/' 
   - src folder without '/'
   - dest folder with '/' 

@@ -28,11 +28,14 @@ In your project's Gruntfile, add a section named `uglyFolders` to the data objec
 
 ```js
 grunt.initConfig ({
-  uglyFolders : {
-                options : {
-                          // Task-specific options go here.
-                        }
-              }
+  uglyfolders : 
+                mytask : {
+                              {
+                                options : {
+                                          // Task-specific options go here.
+                                        }
+                              }
+                }
 });
 ```
 
@@ -45,7 +48,7 @@ grunt.initConfig ({
 Type: `String`
 Default value: `js-dev`
 
-Source folder name. If it's not defined 'uglyFolders' will search 'js-dev' folder.
+Source folder name. If it's not defined 'uglyfolders' will search 'js-dev' folder.
 
 
 
@@ -65,12 +68,14 @@ Uglified 'js' files will go in this folder. Default value is 'js' folder.
 
 Use it if you want to ignore some files from your folder containers. Compiler will ignore all files that contain string in their path. Example:
 ```js
-uglyFolders : {
-                options : {
-                             src    : 'js-dev'
-                           , target : 'js'
-                           , ignore : {
-                                        simple : ['del']
+uglyfolders : {
+                general : {
+                              options : {
+                                           src    : 'js-dev'
+                                         , target : 'js'
+                                         , ignore : {
+                                                      simple : ['del']
+                                                    }
                                       }
                         }
               }
@@ -88,14 +93,16 @@ Add more then one ignore filter per container if you want.
 You can use to set target file without change source folder name. Example:
 
 ```js
-uglyFolders : {
-                options : {
-                             src    : 'js-dev'
-                           , target : 'js'
-                           , rename : {
-                                        simple : 'sim'
+uglyfolders : {
+                sometask : {
+                              options : {
+                                           src    : 'js-dev'
+                                         , target : 'js'
+                                         , rename : {
+                                                      simple : 'sim'
+                                                    }
                                       }
-                        }
+                          }
               }
 ```
 
@@ -105,17 +112,20 @@ If 'js-dev/simple' exists, result will be written in 'sim.js' file.
 
 #### renameFile
 
-It's like 'rename' but it's used for files in source root folder. Normally 'uglyFolders' will get the file from 'js-dev/example.js' and after uglify will write result into 'js/example.js'. RenameFile example:
+It's like 'rename' but it's used for files in source root folder. Normally 'uglyfolders' will get the file from 'js-dev/example.js' and after uglify will write result into 'js/example.js'. RenameFile example:
 
 ```js
- uglyFolders : {
-                options : {
-                             src        : 'js-dev'
-                           , target     : 'js'
-                           , renameFile : {
-                                             'example.js' : 'res.js'
-                                        }
+ uglyfolders : {
+                mytask : {
+                            options : {
+                                         src        : 'js-dev'
+                                       , target     : 'js'
+                                       , renameFile : {
+                                                         'example.js' : 'res.js'
+                                                    }
+                                    }
                         }
+
               }
 ```
 This will take 'js-dev/example.js' and after uglify will write result into 'js/res.js' file.
@@ -124,7 +134,7 @@ This will take 'js-dev/example.js' and after uglify will write result into 'js/r
 
 #### filter
 
-Option is used by watch task. Write path of changed file as filter option. Then start a 'uglyFolders' task. It will rebuild one file only.
+Option is used by watch task. Write path of changed file as filter option. Then start a 'uglyfolders' task. It will rebuild one file only.
 
 
 
