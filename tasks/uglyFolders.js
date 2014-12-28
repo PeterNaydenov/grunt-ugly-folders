@@ -12,7 +12,7 @@ module.exports = function ( grunt ) {
 
   grunt.loadNpmTasks ( 'grunt-contrib-uglify' );
 
-  grunt.task.registerMultiTask ('uglyFolders', 'Folders based uglify.', function () {
+  grunt.task.registerMultiTask ('uglyfolders', 'Folders based uglify.', function () {
     var   
          options = this.options({
                                       src            : 'js-dev'

@@ -29,7 +29,7 @@ module.exports = function(grunt) {
     } ,
 
     // Configuration to be run (and then tested).
-    uglyFolders: {
+    uglyfolders: {
               ignoreSub : {
                             options : {
                                         src            : 'test/fixtures'
