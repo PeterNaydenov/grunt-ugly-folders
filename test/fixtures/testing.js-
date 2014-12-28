@@ -1,0 +1,2 @@
+var lang = 'bg'
+console.log ( 'Testing' + lang );

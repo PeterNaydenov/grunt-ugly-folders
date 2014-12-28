@@ -1,6 +1,6 @@
 /*
  * uglyFolders
- * https://github.com/PeterNaydenov/uglyFolder
+ * https://github.com/PeterNaydenov/uglyFolders
  *
  * Copyright (c) 2014 Peter Naydenov
  * Licensed under the MIT license.
@@ -21,32 +21,30 @@ module.exports = function(grunt) {
       options: {
         jshintrc: '.jshintrc'
       }
-    },
+    } ,
 
     // Before generating any new files, remove any previously-created files.
     clean: {
       tests: ['tmp']
-    },
+    } ,
 
     // Configuration to be run (and then tested).
     uglyFolders: {
-      default_options: {
-        options: {
-        },
-        files: {
-          'tmp/default_options': ['test/fixtures/testing', 'test/fixtures/123']
-        }
-      },
-      custom_options: {
-        options: {
-          separator: ': ',
-          punctuation: ' !!!'
-        },
-        files: {
-          'tmp/custom_options': ['test/fixtures/testing', 'test/fixtures/123']
-        }
-      }
-    },
+              ignoreSub : {
+                            options : {
+                                        src            : 'test/fixtures'
+                                      , target         : 'tmp'
+                                      , uglifyOptions  : {
+                                                          "beautify"   : false,
+                                                            "mangle"   : true,
+                                                            "compress" : {
+                                                                          "dead_code" : true,
+                                                                          "warnings"  : true
+                                                                        }
+                                                        }
+                                    }
+                         }
+    } ,
 
     // Unit tests.
     nodeunit: {
