@@ -1,20 +1,20 @@
 {
-  "name": "grunt-uglyFolders",
+  "name": "grunt-ugly-folders",
   "description": "Folders based uglify.",
   "version": "0.1.0",
-  "homepage": "https://github.com/PeterNaydenov/uglyFolder",
+  "homepage": "https://github.com/PeterNaydenov/grunt-ugly-folders",
   "author": "Peter Naydenov <free@backformation.com> (backformation.com)",
   "repository": {
     "type": "git",
-    "url": "git://github.com/PeterNaydenov/uglyFolder.git"
+    "url": "git://github.com/PeterNaydenov/grunt-ugly-folders.git"
   },
   "bugs": {
-    "url": "https://github.com/PeterNaydenov/uglyFolder/issues"
+    "url": "https://github.com/PeterNaydenov/grunt-ugly-folders/issues"
   },
   "licenses": [
     {
       "type": "MIT",
-      "url": "https://github.com/PeterNaydenov/uglyFolder/blob/master/LICENSE-MIT"
+      "url": "https://github.com/PeterNaydenov/grunt-ugly-folders/blob/master/LICENSE-MIT"
     }
   ],
   "engines": {
