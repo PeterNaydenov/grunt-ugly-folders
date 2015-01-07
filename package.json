@@ -1,7 +1,7 @@
 {
   "name": "grunt-ugly-folders",
   "description": "Folders based uglify.",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "homepage": "https://github.com/PeterNaydenov/grunt-ugly-folders",
   "author": "Peter Naydenov <free@backformation.com> (backformation.com)",
   "repository": {
