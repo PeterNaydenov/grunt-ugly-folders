@@ -28,7 +28,7 @@ module.exports = function ( grunt ) {
         , hash       = '#slfl0!'     // File source mask. Prevents target file name duplication - file and folders
         ;
 
-// *** STEP 1 - Read files and foldes. Get only 'JS' files. Read banners if exists;
+// *** STEP 1 - Read source items(files and foldes). Get only 'JS' files. Read banners if exists;
 ( function () {
     var 
           count = 0;

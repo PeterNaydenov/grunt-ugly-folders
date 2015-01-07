@@ -1,6 +1,6 @@
 # grunt-ugly-folders
 
- Automated uglify method based on folders. Just set source ( your working 'JS' folder) and target ( your production 'JS' folder). Uglyfolders will scan 'source' and will uglify all items found.
+ Automated uglify method based on folders. Just set source ( development 'JS' folder) and target ( production 'JS' folder). Uglyfolders will scan 'source' folder and will uglify all items found. The items are folders and javascript files from first level of depth.
  Example: 
   
   - If our source folder looks like this:
@@ -17,7 +17,7 @@
 
  ```
  
-- Here is the target folder content:
+- Here is the target(destination) folder content:
  
  ```
   |- jquery.js
@@ -60,17 +60,16 @@ grunt.loadNpmTasks('grunt-ugly-folders');
 
 
 ### Overview
-In your project's Gruntfile, add a section named `uglyFolders` to the data object passed into `grunt.initConfig()`.
+In your project's Gruntfile, add a section named `uglyfolders` to the data object passed into `grunt.initConfig()`.
 
 ```js
 grunt.initConfig ({
-  uglyfolders : 
-                mytask : {
-                              {
-                                options : {
-                                          // Task-specific options go here.
-                                        }
-                              }
+  uglyfolders : {
+                  mytask : {
+                            options : {
+                                      // Task-specific options go here.
+                                    }
+                         }
                 }
 });
 ```
@@ -80,15 +79,15 @@ grunt.initConfig ({
 ### Options and Defaults
 Here are all options and their default values:
 ```js
-    {
-              src            : 'js-dev'
-            , target         : 'js'
-            , ignore         : false
-            , rename         : false
-            , renameFile     : false
-            , filter         : false
-            , uglifyOptions  : {}
-        }
+{
+      src            : 'js-dev'
+    , target         : 'js'
+    , ignore         : false
+    , rename         : false
+    , renameFile     : false
+    , filter         : false
+    , uglifyOptions  : {}
+}
 ```
 
 Read in 'Features' section for details and examples.
@@ -103,7 +102,7 @@ Read in 'Features' section for details and examples.
 
 
 ### General Settings
-In most of the projects is enough to source and target folders ( your working and production JS folders).
+In most of the projects is enough to set the source and target folders ( your development and production JS folders).
 ```js
 uglyfolders : {
                 general : {
@@ -115,7 +114,7 @@ uglyfolders : {
               }
 ```
 
-In this example our working 'JS' folder is 'js-dev' and our production folder is 'js'. 
+In this example our development javascript folder is `js-dev` and our production folder is `js`. 
 
 One level depth of 'source' and 'target' is not required. Set them according your project infrastructure. Here is an example:
 
@@ -133,7 +132,7 @@ uglyfolders : {
 
 
 ### Ignore Files in Package
-Uglyfolders read only files with '.js' extension. Simple way to ignore file is to change the extension to something else. For example change extension to '.js-'. Minus will tell you that file is not in use.
+Uglyfolders read only files with '.js' extension. Simple way to ignore file is to change the extension to something else. Example: Change extension to '.js-'. Minus will tell you that file is not in use.
 
 Uglyfolders task has an 'ignore' option. Use it to ignore some files from your source folder items. Compiler will ignore all files that contain string in their path. Example:
 ```js
@@ -149,14 +148,14 @@ uglyfolders : {
                         }
               }
 ```
-Ignore option says that source folder item  'js-dev/simple' has an ignore filter. All files with 'del' in their paths will be ignored. Ignore will works for :
+Ignore option says that source folder item  'js-dev/simple' has an ignore-filter. All files with 'del' in their paths will be ignored. Ignore will works for :
 
   - js-dev/simple/del.js
   - js-dev/simple/delete.js
   - js-dev/simple/del/anyFileName.js
   - js-dev/simple/delgado/anyFileName.js
 
-Use of more then one ignore filter per folder is possible.
+Use of more then one ignore-filter per folder is an option.
 ```js
 uglyfolders : {
                 general : {
@@ -176,7 +175,7 @@ The 'ignore' paterns ('del' and 'otherFilterString' in last example) are treated
 
 
 ### Rename Result File
-There are two types of items in 'source' folder: js files and folders. Renaming of source items will change results in 'target' folder. It's a most common approach. Sometimes we using complex open source libraries and may be changing file names is not a good option. Then we can use 'rename' option for folders and 'renameFile' option for files.
+There are two types of items in 'source' folder: '.js' files and folders. Renaming of source items will change results in 'target' folder. It's a most common approach. Sometimes we using complex open source libraries and may be changing file names is not an option. Then we can use 'rename' option for folders and 'renameFile' option for files.
 
 Rename example:
 ```js
@@ -307,9 +306,60 @@ Uglyfolders has 6 major steps. They are executed always in same order.
 
 
 ## Examples
-### Advance folder settings
 
-- source folder structure
+### Rearange Source Folders
+
+In this example our goal is to see how will look our project with only one javascript file. Let's start with such a 'source-folder' structure:
+
+```
+|-jquery.js
+|-core|
+|     |-backbone.js
+|     |-underscore.js
+|
+|- bootstrap|
+            |-alert.js
+            |-button.js
+            |-carousel.js
+            |-tab.js
+```
+
+By using standard setting with options `src` and `target`, result will look like that:
+
+```
+|-jquery.js
+|-core.js
+|-bootstrap.js
+```
+Drag and drop `bootstrap` folder into 'core' folder. Do the same with `jquery.js`. Then folder will look like:
+
+```
+|-core|
+|     |-backbone.js
+|     |-underscore.js
+|     |-jquery.js
+|     |-bootstrap|
+                 |-alert.js
+                 |-button.js
+                 |-carousel.js
+                 |-tab.js
+```
+
+and result in 'target-folder' will look like this:
+
+```
+|-core.js
+```
+
+Yes, just that simple.
+
+
+
+### Advance Folder Settings
+
+Apply different 'uglify' rules to 'pages' sub-folder in our 'source' folder.
+
+- source-folder structure
 
 ```
  |-lib.js
@@ -324,7 +374,7 @@ Uglyfolders has 6 major steps. They are executed always in same order.
 
 ```
 
-- target folder structure should look like that:
+- 'target' folder structure should looks like this:
 
 ```
  |-lib.js
@@ -372,11 +422,18 @@ _(Nothing yet)_
 
 
 ## Release History
+
+### 0.1.3 (2015-01-03)
+
+ - [x] Documentation update.
+ - [x] Source code comments update.
+ - [ ] Unit test are not complete
+
 ### 0.1.2 (2015-01-03)
 
  - [x] Documentation improvement
  - [x] '.npmignore' file added
- - [] Unit test are not complete
+ - [ ] Unit test are not complete
 
 
 
