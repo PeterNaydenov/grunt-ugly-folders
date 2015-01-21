@@ -226,7 +226,7 @@ Example:
 ```
  
 - result folder
- ```
+```
  |-some.js
  |-wrapperFolder.js
 ```
@@ -297,8 +297,8 @@ Uglyfolders has 6 major steps. They are executed always in same order.
        Apply 'rename' to 'task-listing' object. Change target files if source is folder item.
  - **Step 4** Rename File Items (optional)
            Apply 'renameFile' to 'task-listing' object. Change target files if source is file item.
- - **Step 5** Watcher filter
-           Apply 'filter' to 'task-listing' object. Remove all source-target elements that not contain chaiged file. 
+ - **Step 5** Watcher filter (optional)
+           Apply 'filter' to 'task-listing' object. Remove all source-target elements that not contain chaiged file.
  - **Step 6** Uglify
            Uglify files by using data in 'task-listing' object. Set banner if exists. Use uglify settings written in 'uglifyOptions' option.
 
@@ -423,7 +423,7 @@ _(Nothing yet)_
 
 ## Release History
 
-### 0.1.3 (2015-01-03)
+### 0.1.3 (2015-01-07)
 
  - [x] Documentation update.
  - [x] Source code comments update.
