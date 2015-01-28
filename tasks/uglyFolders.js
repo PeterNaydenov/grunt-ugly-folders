@@ -28,7 +28,16 @@ module.exports = function ( grunt ) {
         , hash       = '#slfl0!'     // File source mask. Prevents target file name duplication - file and folders
         ;
 
-// *** STEP 1 - Read source items(files and foldes). Get only 'JS' files. Read banners if exists;
+
+
+
+
+
+
+
+
+
+// *** STEP 1 - Read source items (files and foldes). Get only 'JS' files. Read banners if exists;
 ( function () {
     var 
           count = 0;
@@ -49,9 +58,9 @@ module.exports = function ( grunt ) {
                              extension = t [ tLength-1 ];
                              if ( extension != 'js') return;
                              if ( filename == 'banner.js' ) banner = true;
-
                              if ( subdir == undefined ) {
                                 // Files in main source folder. Add hash to them.
+                                                             if ( banner ) return;
                                                              listing [ hash + filename ] = abspath;
                                                              count++;   
                                   }
@@ -64,8 +73,17 @@ module.exports = function ( grunt ) {
                                                             else                          
                                                                             if ( !banner ) listing[subdir].push(abspath);
                               }
+
              }); // file recurse
 })(); // end step 1
+
+
+
+
+
+
+
+
 
 
 
@@ -74,7 +92,7 @@ if ( options.ignore ) {
 ( function () {
       var
             ignore  = options.ignore   // alias for options.ignore
-          , banner                    // preserve folder's banner if exists
+          , banner  = false             // preserve folder's banner if exists
           ;
 
 
@@ -85,7 +103,9 @@ if ( options.ignore ) {
                                             continue;
                                           }
 
+
               if ( listing[folderName]['banner'] ) banner = listing[folderName]['banner'];
+              else banner = false;
               
               ignore[folderName].forEach ( function ( pattern ) {
                                           var regX = new RegExp(pattern);
@@ -95,7 +115,7 @@ if ( options.ignore ) {
 
                                           // clean array. Remove indexes of deleted items
                                           listing[folderName] = listing[folderName].filter ( function ( item ) { if ( item ) return item; });
-                                          listing[folderName]['banner'] = banner;
+                                          if ( banner ) listing[folderName]['banner'] = banner;
               }); // forEach ignoreList
       } // for ignoreList
 })(); 
@@ -103,7 +123,54 @@ if ( options.ignore ) {
 
 
 
-// *** STEP 3 - Folder software rename (optional). Change target files without chainging source folder name.
+
+
+
+
+
+
+
+// *** STEP 3 - Adds system scripts to existing source items.
+if ( options.include ) {   
+( function () {
+      var 
+            opt = options.include
+          , listName 
+          , tmp
+          ;
+
+
+      for ( var name in opt ) {
+                                  // check if file exists
+                                  opt[name].forEach ( function (file) {
+                                                                         if ( !grunt.file.exists(file) ) grunt.fail.fatal ( 'Include report wrong path to the file ---> ' + file );
+                                                     });
+
+                                  // include to javascript file
+                                  if ( (typeof listing[name]      === 'undefined' ) &&   
+                                       (typeof listing[hash+name] === 'string'    )     ) {
+                                                                                              opt[name].push( listing[hash+name] );
+                                                                                              listing[hash+name] = opt[name];
+                                                                                          }
+                                  // include to folder
+                                  if ( listing[name]  instanceof Array )   {
+                                                                                              listing[name] = listing[name].concat ( opt[name] );
+                                                                           }
+      } // for name
+
+})();
+} // end step 3
+
+
+
+
+
+
+
+
+
+
+// *** STEP 4 - Folder software rename (optional). Change target files without chainging source folder name.
 if ( options.rename ) {
 ( function () {
     var 
@@ -122,11 +189,18 @@ if ( options.rename ) {
 
 
 })(); 
-} // end step 3
+} // end step 4
 
 
 
-// *** STEP 4 - File software rename ( optional). Change target files without chainging source file name.
+
+
+
+
+
+
+
+// *** STEP 5 - File software rename ( optional). Change target files without chainging source file name.
 if ( options.renameFile ) {
 ( function () {
     var 
@@ -143,11 +217,17 @@ if ( options.renameFile ) {
                                   delete l[hash+name];
                             } // for name
 })(); 
-} // end step 4
+} // end step 5
 
 
 
-// *** STEP 5 - Watch filter ( optional). Remove from 'listing' all elements that are not changed.
+
+
+
+
+
+
+// *** STEP 6 - Watch filter ( optional). Remove from 'listing' all elements that are not changed.
 if ( options.filter ) { 
 ( function () {
       var 
@@ -177,11 +257,18 @@ if ( options.filter ) {
     } // for el in oldListing
 
 })();
-} // end step 5
+} // end step 6
 
 
 
-// *** STEP 6 - uglify
+
+
+
+
+
+
+
+// *** STEP 7 - uglify
 ( function () {
   var 
         count = 0       // uglify item counter
@@ -202,6 +289,16 @@ if ( options.filter ) {
  for ( var index in listing ) {
 
     count++;
+
+
+
+    // Don't do anything more if source array is empty;
+    if ( listing[index].length == 0 ) {
+                                  grunt.log.ok ( 'Uglify "' + namePlugin + '-step' + count + '" is canceled. Source array is empty.' );
+                                  continue;
+                               }
+
+
 
     if ( targetFolder.lastIndexOf('/') != (targetFolder.length-1) ) targetFolder = targetFolder + '/';
 
@@ -243,7 +340,7 @@ if ( options.filter ) {
 
     grunt.task.run(taskList);
 
-})(); // end step 6
+})(); // end step 7
 
 
   });

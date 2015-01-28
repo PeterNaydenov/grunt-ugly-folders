@@ -1,4 +1,4 @@
-# grunt-ugly-folders
+# Ugly Folders for Grunt
 
  Automated uglify method based on folders. Just set source ( development 'JS' folder) and target ( production 'JS' folder). Uglyfolders will scan 'source' folder and will uglify all items found. The items are folders and javascript files from first level of depth.
  Example: 
@@ -30,10 +30,7 @@ Only the first level of depth is important. Javascript files will be processed a
 
 Plugin uses only files with 'js' extension. All other files are ignored.
 
-## Dictionary
- - *Source items* - Only first level of depth members of source folder;
- - *Folder item*  - Source item is folder;
- - *File item*    - Source item is file;
+
 
 
 
@@ -85,12 +82,60 @@ Here are all options and their default values:
     , ignore         : false
     , rename         : false
     , renameFile     : false
+    , import         : false
     , filter         : false
     , uglifyOptions  : {}
 }
 ```
 
 Read in 'Features' section for details and examples.
+
+
+
+
+
+
+
+
+
+## Dictionary
+ - *Source items* - Only first level of depth members of source folder;
+ - *Folder item*  - Source item is folder;
+ - *File item*    - Source item is file;
+
+
+
+
+
+
+
+
+
+
+## How it works?
+
+Uglyfolders has 7 major steps. They are executed always in same order.
+
+ - **Step 1** Read source items (files and folders).
+      Fill 'task-listing' object. The object contains all source and destination files. Contains also banner information if it's exists. Listing collect only '.js' extension files.
+ - **Step 2** Ignore (optional)
+           Apply 'ignore' to 'task-listing' object. Remove all items that have specific pattern in their path (folders and files). It's a regular expression test
+ - **Step 3** Import System scripts (optional)
+       It adds system scripts to existing source items.
+ - **Step 4** Rename Folders Items (optional)
+       Apply 'rename' to 'task-listing' object. Change target files if source is folder item.
+ - **Step 5** Rename File Items (optional)
+           Apply 'renameFile' to 'task-listing' object. Change target files if source is file item.
+ - **Step 6** Watcher filter (optional)
+           Apply 'filter' to 'task-listing' object. Remove all source-target elements that not contain chaiged file.
+ - **Step 7** Uglify
+           Uglify files by using data in 'task-listing' object. Set banner if exists. Use uglify settings written in 'uglifyOptions' option.
+
+
+
+
+
+
 
 
 
@@ -233,7 +278,8 @@ Example:
 
 The 'wrapperFolder.js' file will have as a content 'jQuery.js' and 'backbone.js' files. On top of them 'banner.js' content. Don't forget to put 'banner.js' content in comments - use `/* */ `.
 
-Ignore example:
+
+**Ignore example**:
 
 - Source folder
 ```
@@ -282,25 +328,28 @@ Result looks like in previous example but in this case 'wrapperFolder.js' will c
 
 
 
+### Import files
+> Use this option with caution! The attribute not follow general usability rules applied to this plugin.
+
+I'm using it only when I have to add a 'system script' to defined in development folder source item. 
+
+```js
+uglyfolders : {
+                task : {
+                          options : {
+                                          src    : 'dev-js'
+                                        , target : 'js'
+                                        , import : {
+                                                   "core" : [ "system/main.js"]
+                                                   }
+                                    }
+                        }
+            } 
+
+```
+This instruction will search for source item "core" and will add to it file "system/main.js".
 
 
-
-## How it works?
-
-Uglyfolders has 6 major steps. They are executed always in same order.
-
- - **Step 1** Read source items (files and folders).
-      Fill 'task-listing' object. The object contains all source and destination files. Contains also banner information if it's exists. Listing collect only '.js' extension files.
- - **Step 2** Ignore (optional)
-           Apply 'ignore' to 'task-listing' object. Remove all items that have specific pattern in their path (folders and files). It's a regular expression test
- - **Step 3** Rename Folders Items (optional)
-       Apply 'rename' to 'task-listing' object. Change target files if source is folder item.
- - **Step 4** Rename File Items (optional)
-           Apply 'renameFile' to 'task-listing' object. Change target files if source is file item.
- - **Step 5** Watcher filter (optional)
-           Apply 'filter' to 'task-listing' object. Remove all source-target elements that not contain chaiged file.
- - **Step 6** Uglify
-           Uglify files by using data in 'task-listing' object. Set banner if exists. Use uglify settings written in 'uglifyOptions' option.
 
 
 
@@ -423,17 +472,30 @@ _(Nothing yet)_
 
 ## Release History
 
+### 0.1.4 (2015-01-28)
+
+ - [x] Bugfix: 'banner.js' in first level was not ignored;
+ - [x] Bugfix: Filtered folder spreading its banner among other folders with filter;
+ - [x] Ignore uglify if source array is empty;
+ - [x] option 'include' was added;
+ - [x] Documentation update;
+ - [ ] Unit tests are not complete
+
 ### 0.1.3 (2015-01-07)
 
  - [x] Documentation update.
  - [x] Source code comments update.
- - [ ] Unit test are not complete
+ - [ ] Unit tests are not complete
+ - [ ] 'banner.js' in first level is not ignored;
+ - [ ] Filtered folder spreading its banner among other folders with filter;
 
 ### 0.1.2 (2015-01-03)
 
  - [x] Documentation improvement
  - [x] '.npmignore' file added
- - [ ] Unit test are not complete
+ - [ ] 'banner.js' in first level is not ignored;
+ - [ ] Filtered folder spreading its banner among other folders with filter;
+ - [ ] Unit tests are not complete
 
 
 
