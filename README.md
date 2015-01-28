@@ -331,7 +331,7 @@ Result looks like in previous example but in this case 'wrapperFolder.js' will c
 ### Import files
 > Use this option with caution! The attribute not follow general usability rules applied to this plugin.
 
-I'm using it only when I have to add a 'system script' to defined in development folder source item. 
+I'm using it only when I have to add a 'system script' to already defined source item in development folder. 
 
 ```js
 uglyfolders : {
