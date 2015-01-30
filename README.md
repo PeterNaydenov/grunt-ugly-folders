@@ -473,7 +473,7 @@ _(Nothing yet)_
 ## Release History
 
 ### 0.1.5 (2015-01-30)
-- [ ] Bugfix:  Ignore 'include' setting if source folder is empty;
+- [x] Bugfix:  Ignore 'include' setting if source folder is empty;
 - [ ] Unit tests are not complete
 
 ### 0.1.4 (2015-01-28)
