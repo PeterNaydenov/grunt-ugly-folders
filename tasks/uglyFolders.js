@@ -156,6 +156,12 @@ if ( options.include ) {
                                   if ( listing[name]  instanceof Array )   {
                                                                                               listing[name] = listing[name].concat ( opt[name] );
                                                                            }
+
+                                  // source folder is empty. Only includes
+                                  if ( (typeof listing[name]      === 'undefined' ) &&
+                                       (typeof listing[hash+name] === 'undefined' )     ) {
+                                                                                              listing[name] = opt[name];
+                                                                                          }
       } // for name
 
 })();

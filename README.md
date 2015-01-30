@@ -472,13 +472,18 @@ _(Nothing yet)_
 
 ## Release History
 
+### 0.1.5 (2015-01-30)
+- [ ] Bugfix:  Ignore 'include' setting if source folder is empty;
+- [ ] Unit tests are not complete
+
 ### 0.1.4 (2015-01-28)
 
  - [x] Bugfix: 'banner.js' in first level was not ignored;
  - [x] Bugfix: Filtered folder spreading its banner among other folders with filter;
- - [x] Ignore uglify if source array is empty;
- - [x] option 'include' was added;
  - [x] Documentation update;
+ - [x] Ignore uglify if source array is empty;
+ - [x] setting 'include' was added;
+ - [ ] Bug :  Ignore 'include' setting if source folder is empty;
  - [ ] Unit tests are not complete
 
 ### 0.1.3 (2015-01-07)
