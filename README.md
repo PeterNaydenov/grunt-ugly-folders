@@ -17,7 +17,7 @@
 
  ```
  
-- Here is the target(destination) folder content:
+- Here is the result in target(destination) folder content:
  
  ```
   |- jquery.js
@@ -471,6 +471,10 @@ _(Nothing yet)_
 
 
 ## Release History
+
+### 0.1.6 (2015-10-02)
+- [x] Dependencies:  Update dependencies in 'package.json'. Outdated modules upgrade;
+- [ ] Unit tests are not complete
 
 ### 0.1.5 (2015-01-30)
 - [x] Bugfix:  Ignore 'include' setting if source folder is empty;
